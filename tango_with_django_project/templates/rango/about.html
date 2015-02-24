@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html>
+
+    <head>
+        <title>About page</title>
+    </head>
+
+    <body>
+        <h1>He is new to django</h1>
+        <strong>{{ linktoindex }}</strong><br />
+        <a href='/rango/'>Index</a><br />
+        <img src="{% static "images/about.jpg" %}" alt="about Picture of Rango" />
+    </body>
+
+</html>
