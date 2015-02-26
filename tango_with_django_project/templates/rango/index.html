@@ -1,20 +1,30 @@
 <!DOCTYPE html>
-
-{% load staticfiles %}
-
 <html>
-
     <head>
         <title>Rango</title>
-        <link rel="stylesheet" href="{% static "css/base.css" %}" />
-        <script src="{% static "js/jquery.js" %}"></script>
     </head>
 
     <body>
-        <h1>Rango says...</h1>
-        hello world! <strong>{{ boldmessage }}</strong><br />
-        <a href="/rango/about/">About</a><br />
-        <img src="{% static "images/rango.jpg" %}" alt="Picture of Rango" />
-    </body>
+        <h1>Rango says...hello world!</h1>
 
+        {% if categories %}
+            <ul>
+                {% for category in categories %}
+                <li><a href="/rango/category/{{ category.slug }}">{{ category.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>There are no categories present.</strong>
+        {% endif %}
+
+        {% if most_viewd_pages %}
+        	<ul>
+        		{% for most_viewd_page in most_viewd_pages %}
+        		<li><a href="{{ most_viewd_page.url }}">{{ most_viewd_page.title }}</a></li>
+        		{% endfor %}
+        	</ul>
+        {% endif %}
+
+        <a href="/rango/about/">About</a><br />
+    </body>
 </html>
