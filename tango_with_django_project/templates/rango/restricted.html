@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Restricted Page{% endblock %}
+
+{% block body_block %}
+
+<h1>You, {{ user.username }}, can see this now because you are logged in, understand?</h1>
+
+{% endblock %}

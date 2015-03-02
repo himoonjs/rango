@@ -26,7 +26,7 @@ def index(request):
 
 def about(request):
 
-    context_dict = {'linktoindex': "Rango says this is the about page."}
+    context_dict = {'about_text': "Rango says this is the about page."}
 
     return render(request, 'rango/about.html', context_dict)
     #return HttpResponse("Rango says here is the about page.<br/><a href='/rango/'>Index</a>")
@@ -187,7 +187,7 @@ def user_login(request):
 
 @login_required
 def restricted(request):
-    return HttpResponse("Since you're logged in, you can see this text!")
+    return render(request, 'rango/restricted.html', {})
 
 # Use the login_required() decorator to ensure only those logged in can access the view.
 @login_required

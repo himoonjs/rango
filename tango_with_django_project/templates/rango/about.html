@@ -1,18 +1,11 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 
 {% load staticfiles %}
 
-<html>
+{% block title %}About page{% endblock %}
 
-    <head>
-        <title>About page</title>
-    </head>
-
-    <body>
+{% block body_block %}
         <h1>He is new to django</h1>
-        <strong>{{ linktoindex }}</strong><br />
-        <a href='/rango/'>Index</a><br />
+        <strong>{{ about_text }}</strong><br />
         <img src="{% static "images/about.jpg" %}" alt="about Picture of Rango" />
-    </body>
-
-</html>
+{% endblock %}
