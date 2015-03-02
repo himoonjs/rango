@@ -5,6 +5,7 @@
 {% block title %}About page{% endblock %}
 
 {% block body_block %}
+        <h2>You've visited this rango {{ visits }} times.</h2>
         <h1>He is new to django</h1>
         <strong>{{ about_text }}</strong><br />
         <img src="{% static "images/about.jpg" %}" alt="about Picture of Rango" />
