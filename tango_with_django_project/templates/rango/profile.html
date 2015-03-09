@@ -4,8 +4,12 @@
 
 {% block body_block %}
     {% if user.is_authenticated %}
-        <h1>Username: {{ username }}</h1>
-        <p><a href="{{ user_profile.website }}">website: {{ user_profile.website }}</p>
+        <h1>Username: {{ user.username }}</h1>
+        {% if user.username == username %}
+            <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
+        {% endif %}
+        <p>E-mail: {{ user.email }}</p>
+        <p>Website: <a href="{{ user_profile.website }}">{{ user_profile.website }}</p>
         <img src="{{ user_profile.picture.url }}" alt="Your picture" class="img-thumnail">
     {% endif %}
 {% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Edit Profile{% endblock %}
+{% block body_block %}
+    {% if user.is_authenticated %}
+    <h1>{{ user.username }}'s profile.</h1>
+    <img src="{{ user_profile.picture.url}}" alt="Your picture" class="img-thumbnail" height = "100px" width = "100px">
+    <form id="profile_form" method="post" action="{% url 'edit_profile' %}" enctype="multipary/form-data">
+        {% csrf_token %}
+
+        <h2 class="form-signin-heading">Create Your Profile</h2>
+
+            {{ edit_profile_form.as_p }}
+
+        <input type="submit" name="file" value="Register" />
+    </form>
+    {% endif %}
+{% endblock %}

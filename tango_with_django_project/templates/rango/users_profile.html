@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+    {% for user in users %}
+        <p><a href="{% url 'view_profile' user.username %}">{{ user.username }}</a></p>
+    {% endfor %}
+{% endblock %}

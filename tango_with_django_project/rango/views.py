@@ -62,11 +62,9 @@ def about(request):
     #return HttpResponse("Rango says here is the about page.<br/><a href='/rango/'>Index</a>")
 
 def category(request, category_name_slug):
-
     context_dict = {}
-
-    result_list = []
-
+    context_dict['result_list'] = None
+    context_dict['query'] = None
     if request.method == 'POST':
         query = request.POST['query'].strip()
 
@@ -74,19 +72,26 @@ def category(request, category_name_slug):
             # Run our Bing function to get the results list!
             result_list = run_query(query)
 
-        context_dict['result_list'] = result_list
+            context_dict['result_list'] = result_list
+            context_dict['query'] = query
 
     try:
         category = Category.objects.get(slug=category_name_slug)
         context_dict['category_name'] = category.name
-
-        pages = Page.objects.filter(category=category)
+        pages = Page.objects.filter(category=category).order_by('-views')
         context_dict['pages'] = pages
         context_dict['category'] = category
         context_dict['category_name_slug'] = category.slug
     except Category.DoesNotExist:
         pass
+
+    if not context_dict['query']:
+        context_dict['query'] = category.name
+
     return render(request, 'rango/category.html', context_dict)
+
+
+
 
 @login_required
 def add_category(request):
@@ -174,10 +179,50 @@ def view_profile(request, username):
     except:
         user_profile = None
 
-    context_dict['user_profile'] = user_profile
     context_dict['username'] = username
+    context_dict['user_profile'] = user_profile
+    context_dict['user'] = user
 
     return render(request, 'rango/profile.html', context_dict)
 
 def profile(request):
     return redirect('/rango/view_profile/'+request.user.username+"/")
+
+@login_required
+def users_profile(request):
+    context_dict = {}
+    users = User.objects.all()
+
+    context_dict['users'] = users
+    return render(request, 'rango/users_profile.html', context_dict)
+
+@login_required
+def edit_profile(request):
+    user = User.objects.get(username=request.user)
+
+    try:
+        user_profile = UserProfile.objects.get(user=user)
+
+    except:
+        user = None
+
+    if request.method == 'GET':
+        edit_profile_form = UserProfileForm(request.GET)
+        context_dict = {}
+        context_dict['edit_profile_form'] = edit_profile_form
+        context_dict['user'] = user
+        context_dict['user_profile'] = user_profile
+        return render(request, 'rango/edit_profile.html', context_dict)
+
+    if request.method == 'POST':
+        try:
+            user_profile.picture = request.FILES['picture']
+        except:
+            user_profile.picture = '/static/images/about.jpg'
+        user_profile.website = request.POST['website']
+        user_profile.save()
+        return profile(request)
+
+
+
+
