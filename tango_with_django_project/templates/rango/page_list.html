@@ -1,0 +1,13 @@
+{% if pages %}
+    <ul>
+    {% for p in pages %}
+        {% if p.category == act_cat %}
+        <li><a href="{{ p.url }}">{{ p.title }}</a></li>
+        {% endif %}
+        
+    {% endfor %}
+
+{% else %}
+    <li><strong>There are no pages present.</strong></li>
+    </ul>
+{% endif %}

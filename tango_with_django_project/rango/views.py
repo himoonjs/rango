@@ -283,5 +283,3 @@ def auto_add_page(request):
 
     return render(request, 'rango/page_list.html', context_dict)
 
-
-
