@@ -60,6 +60,15 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
                 {% block side_block %}
+                <ul class="nav nav-list">
+                  <li class="nav-header">Find a Category</li>
+                  <form>
+                  <label></label>
+                  <li><input class="search-query span10" type="text" name="suggestion" value="" id="suggestion" /></li>
+                  </form>
+                </ul>
+                <div id="cats">
+                </div>
                 {% get_category_list category %}
                 {% endblock %}
         </div>
@@ -80,5 +89,6 @@
     <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
     <script src="{% static "js/jquery-1.11.2.min.js" %}"></script>
     <script src="{% static "js/rango-jquery.js" %}"></script>
+    <script src="{% static "js/rango-ajax.js" %}"></script>
   </body>
 </html>
